@@ -6,6 +6,10 @@
 // Include the correct homework header
 #include "hw/HW5.h"
 
+#include "HelpfulFunctions.h"
+#include <cstdlib>  // For rand() and srand()
+#include <ctime>    // For time()
+
 class MyGDAlgorithm : public amp::GDAlgorithm {
 	public:
 		// Consider defining a class constructor to easily tune parameters, for example: 
