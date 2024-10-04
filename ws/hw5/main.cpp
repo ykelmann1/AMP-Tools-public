@@ -22,6 +22,7 @@ int main(int argc, char** argv) {
     Visualizer::makeFigure(prob, path);
 
     // Visualize your potential function
+    amp::Visualizer::makeFigure(MyPotentialFunction{}, prob, 50);
     //amp::Visualizer::makeFigure(MyPotentialFunction{}, prob.x_min, prob.x_max, prob.y_min, prob.y_max, 20);
     Visualizer::showFigures();
     
