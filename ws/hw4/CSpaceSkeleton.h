@@ -1,5 +1,6 @@
 #pragma once
-
+#include <cmath>
+#include "HelpfulFunctions.h"
 // This includes all of the necessary header files in the toolbox
 #include "AMPCore.h"
 
@@ -16,6 +17,12 @@ class MyGridCSpace2D : public amp::GridCSpace2D {
         // Override this method for determining which cell a continuous point belongs to
         virtual std::pair<std::size_t, std::size_t> getCellFromPoint(double x0, double x1) const override;
 
+        std::size_t x0_cells;
+        std::size_t x1_cells;
+        double x0_min;
+        double x0_max;
+        double x1_min;
+        double x1_max;
 };
 
 // Derive the HW4 ManipulatorCSConstructor class and override the missing method

@@ -5,7 +5,8 @@
 #include "hw/HW2.h"
 
 // Include any custom headers you created in your workspace
-#include "MyBugAlgorithm.h"
+#include "MyBug1Algorithm.h"
+#include "MyBug2Algorithm.h"
 
 using namespace amp;
 
@@ -16,12 +17,13 @@ int main(int argc, char** argv) {
     /*    Randomly generate the problem     */ 
 
     // Use WO1 from Exercise 2
-    Problem2D problem = HW2::getWorkspace1();
-
-    // Use WO1 from Exercise 2
-    /*
     Problem2D problem = HW2::getWorkspace2();
-    */
+
+    //std::cout<< problem.obstacles[0].verticesCW()[0][0] << ", " << problem.obstacles[0].verticesCW()[0][1] << std::endl;
+    // Use WO1 from Exercise 2
+    
+    //Problem2D problem = HW2::getWorkspace2();
+    
 
     // Make a random environment spec, edit properties about it such as the number of obstacles
     /*
@@ -36,8 +38,8 @@ int main(int argc, char** argv) {
     */
 
     // Declare your algorithm object 
-    MyBugAlgorithm algo;
-    
+    MyBug1Algorithm algo;
+    /*
     {
         // Call your algorithm on the problem
         amp::Path2D path = algo.plan(problem);
@@ -46,13 +48,13 @@ int main(int argc, char** argv) {
         bool success = HW2::check(path, problem);
 
         LOG("Found valid solution to workspace 1: " << (success ? "Yes!" : "No :("));
-
+        std::cout << "Path length = " << path.length() << std::endl;
         // Visualize the path and environment
         Visualizer::makeFigure(problem, path);
-    }
+    } */
 
     // Let's get crazy and generate a random environment and test your algorithm
-    {
+    /* {
         amp::Path2D path; // Make empty path, problem, and collision points, as they will be created by generateAndCheck()
         amp::Problem2D random_prob; 
         std::vector<Eigen::Vector2d> collision_points;
@@ -64,16 +66,16 @@ int main(int argc, char** argv) {
         // Visualize the path environment, and any collision points with obstacles
         Visualizer::makeFigure(random_prob, path, collision_points);
     }
-
+ */
     Visualizer::showFigures();
 
-    HW2::grade(algo, "nonhuman.biologic@myspace.edu", argc, argv);
+    HW2::grade(algo, "yarden.kelmann@colorado.edu", argc, argv);
     
     /* If you want to reconstruct your bug algorithm object every trial (to reset member variables from scratch or initialize), use this method instead*/
     //HW2::grade<MyBugAlgorithm>("nonhuman.biologic@myspace.edu", argc, argv, constructor_parameter_1, constructor_parameter_2, etc...);
     
     // This will reconstruct using the default constructor every trial
-    //HW2::grade<MyBugAlgorithm>("nonhuman.biologic@myspace.edu", argc, argv);
+    // HW2::grade<MyBug1Algorithm>("nonhuman.biologic@myspace.edu", argc, argv);
 
     return 0;
 }
