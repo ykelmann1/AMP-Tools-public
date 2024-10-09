@@ -15,17 +15,19 @@ int main(int argc, char** argv) {
     //amp::RNG::seed(amp::RNG::randiUnbounded());
 
     // Test your gradient descent algorithm on a random problem.
-    MyGDAlgorithm algo(0.5,1,0.5,1);
-    amp::Problem2D prob = HW2::getWorkspace2();
+    MyGDAlgorithm algo(0.0001,1,1,1);
+    amp::Problem2D prob = HW5::getWorkspace1();
     amp::Path2D path = algo.plan(prob);
     //bool success = HW5::generateAndCheck(algo, path, prob);
     Visualizer::makeFigure(prob, path);
+    std::cout << "Path length = " << path.length() << std::endl;
+
 
     // Visualize your potential function
     //amp::Visualizer::makeFigure(MyPotentialFunction{}, prob.x_min, prob.x_max, prob.y_min, prob.y_max, 20);
     Visualizer::showFigures();
     
     // Arguments following argv correspond to the constructor arguments of MyGDAlgorithm:
-    HW5::grade<MyGDAlgorithm>("nonhuman.biologic@myspace.edu", argc, argv, 0.5,1,0.2,1);
+    HW5::grade<MyGDAlgorithm>("yarden.kelmann@colorado.edu", argc, argv, 0.5,1,5,1);
     return 0;
 }
