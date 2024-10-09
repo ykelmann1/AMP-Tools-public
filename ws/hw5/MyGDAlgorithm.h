@@ -34,6 +34,34 @@ class MyPotentialFunction : public amp::PotentialFunction2D {
         }
 
 		virtual Eigen::Vector2d getGradient(const Eigen::Vector2d& q) const override {
-            return Eigen::Vector2d(q[0] * q[0],  q[1] * q[1]);
-        }
+			amp::Problem2D problem = amp::HW5::getWorkspace1();
+			double d_star = 0.5;
+			double zetta = 1;
+			double Q_star = 1;
+			double eta = 1;
+
+			Eigen::Vector2d dUatt = {0,0};
+			Eigen::Vector2d dUrep = {0,0};
+
+			if(norm2(q - problem.q_goal) <= d_star){
+				dUatt = zetta*(q - problem.q_goal);
+			}
+			else{
+				dUatt = d_star*zetta*(q - problem.q_goal)/norm2(q - problem.q_goal);
+			}
+
+			for(amp::Obstacle2D obs : problem.obstacles){
+				std::pair<Eigen::Vector2d, double> result = getClosestPointOnObstacle(obs, q);
+				Eigen::Vector2d c = result.first;
+				double d = result.second;
+
+				if(d <= Q_star){
+					dUrep += eta*((1/Q_star) - (1/d))*(q-c)/std::pow(d,3);
+				}
+			}
+
+
+			return dUatt+dUrep;
+
+        } 
 };
