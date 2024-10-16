@@ -42,7 +42,7 @@ int main(int argc, char** argv) {
         cSpaceObstacles.push_back(cSpaceObstacle);
     } 
     
-    //Visualizer::makeFigure(cSpaceObstacles, thetas);
+    Visualizer::makeFigure(cSpaceObstacles, thetas);
 
 
 
@@ -87,7 +87,7 @@ int main(int argc, char** argv) {
     //Visualizer::makeFigure(HW4::getEx3Workspace3(),manipulator,state.setZero());
 
     // You can visualize your cspace 
-    //Visualizer::makeFigure(*cspace);
+    Visualizer::makeFigure(*cspace);
 
     Visualizer::showFigures();
 

@@ -83,6 +83,56 @@ bool collisionChecker(std::vector<amp::Obstacle2D> obstacles, Eigen::Vector2d cu
     return false;
 }
 
+
+int countIntersections(std::vector<amp::Obstacle2D> obstacles, Eigen::Vector2d curr_pos, Eigen::Vector2d next_pos){
+    int nIntersections = 0;
+    for(amp::Obstacle2D obs : obstacles){
+        std::vector<Eigen::Vector2d> vtxs = obs.verticesCW();
+        for(int i = 0; i < vtxs.size(); i++){
+            int j = (i == vtxs.size()-1) ? 0 : i+1;
+            Eigen::Vector2d p1 = vtxs[i];
+            Eigen::Vector2d q1 = vtxs[j];
+            Eigen::Vector2d p2 = curr_pos;
+            Eigen::Vector2d q2 = next_pos;
+
+            // Find the four orientations needed for general and 
+            // special cases 
+            int o1 = orientation(p1, q1, p2); 
+            int o2 = orientation(p1, q1, q2); 
+            int o3 = orientation(p2, q2, p1); 
+            int o4 = orientation(p2, q2, q1); 
+        
+            // General case 
+            if (o1 != o2 && o3 != o4){
+                nIntersections++;
+            } 
+                 
+        
+            // Special Cases 
+            // p1, q1 and p2 are collinear and p2 lies on segment p1q1 
+            if (o1 == 0 && onSegment(p1, p2, q1)){ nIntersections++;} 
+        
+            // p1, q1 and q2 are collinear and q2 lies on segment p1q1 
+            if (o2 == 0 && onSegment(p1, q2, q1)){ nIntersections++;}
+        
+            // p2, q2 and p1 are collinear and p1 lies on segment p2q2 
+            if (o3 == 0 && onSegment(p2, p1, q2)){  nIntersections++;} 
+        
+            // p2, q2 and q1 are collinear and q1 lies on segment p2q2 
+            if (o4 == 0 && onSegment(p2, q1, q2)){  nIntersections++;} 
+
+
+
+        }
+    }
+
+    return nIntersections;
+
+
+
+
+}
+
 bool collisionCheckerPrimitive(Eigen::Vector2d q_init, Eigen::Vector2d q_goal, Eigen::Vector2d curr_pos, Eigen::Vector2d next_pos){
     double f1;
     double f2;
@@ -113,6 +163,19 @@ Eigen::Vector2d rotate(Eigen::Vector2d vec, double theta){
     Eigen::Vector2d vecp = Eigen::Vector2d(R11*vec[0] + R12*vec[1], R21*vec[0] + R22*vec[1]);
     return vecp;
 }
+
+
+bool isPointInCollision(const amp::Environment2D& env, Eigen::Vector2d q){
+    Eigen::Vector2d farLeftPt = {env.x_min, q[1]};
+    int nIntersections = countIntersections(env.obstacles, farLeftPt, q);
+    
+    if(nIntersections % 2 == 0){
+        return false;
+    }else{
+        return true;
+    }
+}
+
 
 
 
@@ -355,4 +418,20 @@ Eigen::Vector2d getGradient(Eigen::Vector2d q, amp::Problem2D& problem, double d
 
 }
 
+
+double correctAngle(double angle){
+    //Make any angle between 0 and 2pi. Include the case where the input is greater than 2pi. I need both cases
+    if(angle > 2*std::numbers::pi){
+        while(angle > 2*std::numbers::pi){
+            angle -= 2*std::numbers::pi;
+        }
+    }
+    else if(angle < 0){
+        while(angle < 0){
+            angle += 2*std::numbers::pi;
+        }
+    }
+
+    return angle;
+}
 

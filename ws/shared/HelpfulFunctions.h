@@ -10,8 +10,11 @@ double sumElements(std::vector<double> vec);
 bool onSegment(Eigen::Vector2d p, Eigen::Vector2d q, Eigen::Vector2d r);
 int orientation(Eigen::Vector2d p, Eigen::Vector2d q, Eigen::Vector2d r);
 bool collisionChecker(std::vector<amp::Obstacle2D> obstacles, Eigen::Vector2d curr_pos, Eigen::Vector2d next_pos);
+int countIntersections(std::vector<amp::Obstacle2D> obstacles, Eigen::Vector2d curr_pos, Eigen::Vector2d next_pos);
 
 bool collisionCheckerPrimitive(Eigen::Vector2d q_init, Eigen::Vector2d q_goal, Eigen::Vector2d curr_pos, Eigen::Vector2d next_pos);
+
+bool isPointInCollision(const amp::Environment2D& env, Eigen::Vector2d q);
 
 Eigen::Vector2d getBoundaryFollowingStep(std::vector<amp::Obstacle2D> obstacles, Eigen::Vector2d curr_pos, Eigen::Vector2d curr_step, double dTheta, std::string robotTurningDirection);
 
@@ -29,4 +32,7 @@ amp::Obstacle2D computeCSpaceObstacle2d(std::vector<Eigen::Vector2d> R, amp::Obs
 std::pair<Eigen::Vector2d, double> getClosestPointOnObstacle(amp::Obstacle2D obs, Eigen::Vector2d q);
 Eigen::Vector2d getGradient(Eigen::Vector2d q, const amp::Problem2D& problem, double d_star, double zetta, double Q_star, double eta);
 
+
+// Angle corrector
+double correctAngle(double angle);
 
