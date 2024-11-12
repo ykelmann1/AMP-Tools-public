@@ -52,8 +52,8 @@ int main(int argc, char** argv) {
     //Visualizer::showFigures();
 
     ManipulatorTrajectory2Link trajectory = manip_algo.plan(manipulator, manip_problem);
-    Visualizer::makeFigure(manip_problem, manipulator, trajectory);
-    Visualizer::makeFigure(*manip_algo.getCSpace(), trajectory);
+    //Visualizer::makeFigure(manip_problem, manipulator, trajectory);
+    //Visualizer::makeFigure(*manip_algo.getCSpace(), trajectory);
 
     // For Exercise 3, you will need to implement the A* algorithm.
     ShortestPathProblem problem = HW6::getEx3SPP();

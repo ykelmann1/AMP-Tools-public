@@ -36,3 +36,6 @@ Eigen::Vector2d getGradient(Eigen::Vector2d q, const amp::Problem2D& problem, do
 // Angle corrector
 double correctAngle(double angle);
 
+// Dinstance function with angle at third index
+double normWithAngleAtThirdIndex(Eigen::VectorXd vec);
+

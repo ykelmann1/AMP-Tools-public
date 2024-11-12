@@ -435,3 +435,13 @@ double correctAngle(double angle){
     return angle;
 }
 
+double normWithAngleAtThirdIndex(Eigen::VectorXd vec){
+    if(vec.size() > 2){
+        if(std::abs(vec[2]) > std::numbers::pi){
+            vec[2] = 2*std::numbers::pi - vec[2];
+        }
+        
+        return vec.norm();
+    }
+}
+
