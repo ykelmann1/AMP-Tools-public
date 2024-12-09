@@ -55,4 +55,4 @@ for agent_i, path in zip(range(0, len(paths)), paths):
 
 # Labels and legend
 plt.legend()
-plt.show()
+#plt.show()
